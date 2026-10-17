@@ -1,7 +1,7 @@
 {
   "format": "academic-search-rules",
   "schemaVersion": 1,
-  "revision": 4,
+  "revision": 6,
   "sites": [
     {
       "id": "cnki",
@@ -94,87 +94,3 @@
               "name": "pos",
               "value": "0"
             },
-            {
-              "name": "sortorder",
-              "value": "desc"
-            },
-            {
-              "name": "sponsor",
-              "value": ""
-            },
-            {
-              "name": "sponsor_type",
-              "value": "all"
-            },
-            {
-              "name": "state",
-              "value": "all"
-            },
-            {
-              "name": "field_of_interest",
-              "value": "all"
-            },
-            {
-              "name": "sortfield",
-              "value": "relevance"
-            },
-            {
-              "name": "searchmode",
-              "value": "advanced"
-            },
-            {
-              "name": "virtualConfReadOnly",
-              "value": "B"
-            },
-            {
-              "name": "eventformat",
-              "value": ""
-            }
-          ],
-          "fields": [
-            {
-              "id": "keyword",
-              "label": "会议关键词",
-              "param": "q",
-              "type": "text",
-              "required": true,
-              "defaultValue": "*",
-              "placeholder": "输入关键词；* 表示全部会议"
-            },
-            {
-              "id": "start-date",
-              "label": "开始日期",
-              "param": "from",
-              "type": "date",
-              "required": true,
-              "defaultValue": ""
-            },
-            {
-              "id": "end-date",
-              "label": "结束日期",
-              "param": "to",
-              "type": "date",
-              "required": true,
-              "defaultValue": ""
-            }
-          ],
-          "verification": {
-            "status": "verified",
-            "checkedAt": "2026-10-17",
-            "method": "manual",
-            "notes": "人工确认 q=*、from=2025-01-01、to=2025-01-06 时显示对应日期筛选及 5 场会议；使用规则生成的链接将 q 改为 IMCOM、保留相同日期后仅返回该会议。date=all 未阻止起止日期生效。",
-            "referenceUrl": "https://support.ieeemce.org/hc/en-us/articles/25213617875483-How-do-I-find-a-conference-on-the-IEEE-org-conference-search"
-          }
-        }
-      ]
-    },
-    {
-      "id": "arxiv",
-      "name": "arXiv",
-      "homepage": "https://arxiv.org/",
-      "category": "预印本",
-      "notes": "当前提供官网入口，请进入网站使用普通或高级检索；本批次尚未完成网页搜索 URL 参数确认，未将返回数据的 API 地址作为网页搜索入口。",
-      "searchRules": []
-    }
-  ]
-}
