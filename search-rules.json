@@ -94,3 +94,413 @@
               "name": "pos",
               "value": "0"
             },
+            {
+              "name": "sortorder",
+              "value": "desc"
+            },
+            {
+              "name": "sponsor",
+              "value": ""
+            },
+            {
+              "name": "sponsor_type",
+              "value": "all"
+            },
+            {
+              "name": "state",
+              "value": "all"
+            },
+            {
+              "name": "field_of_interest",
+              "value": "all"
+            },
+            {
+              "name": "sortfield",
+              "value": "relevance"
+            },
+            {
+              "name": "searchmode",
+              "value": "advanced"
+            },
+            {
+              "name": "virtualConfReadOnly",
+              "value": "B"
+            },
+            {
+              "name": "eventformat",
+              "value": ""
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "会议关键词",
+              "param": "q",
+              "type": "text",
+              "required": true,
+              "defaultValue": "*",
+              "placeholder": "输入关键词；* 表示全部会议"
+            },
+            {
+              "id": "start-date",
+              "label": "开始日期",
+              "param": "from",
+              "type": "date",
+              "required": true,
+              "defaultValue": ""
+            },
+            {
+              "id": "end-date",
+              "label": "结束日期",
+              "param": "to",
+              "type": "date",
+              "required": true,
+              "defaultValue": ""
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "manual",
+            "notes": "人工确认 q=*、from=2025-01-01、to=2025-01-06 时显示对应日期筛选及 5 场会议；使用规则生成的链接将 q 改为 IMCOM、保留相同日期后仅返回该会议。date=all 未阻止起止日期生效。",
+            "referenceUrl": "https://support.ieeemce.org/hc/en-us/articles/25213617875483-How-do-I-find-a-conference-on-the-IEEE-org-conference-search"
+          }
+        }
+      ]
+    },
+    {
+      "id": "arxiv",
+      "name": "arXiv",
+      "homepage": "https://arxiv.org/",
+      "category": "预印本",
+      "notes": "当前提供官网入口，请进入网站使用普通或高级检索；本批次尚未完成网页搜索 URL 参数确认，未将返回数据的 API 地址作为网页搜索入口。",
+      "searchRules": []
+    },
+    {
+      "id": "unesco",
+      "name": "联合国教科文组织（UNESCO）",
+      "homepage": "https://www.unesco.org/zh/",
+      "category": "国际组织",
+      "notes": "联合国教科文组织官网中文站内搜索，覆盖新闻、出版物及其他官网资源；固定保留原链接中的 category=UNESCO。该参数是否进一步限制搜索范围尚未单独确认。",
+      "searchRules": [
+        {
+          "id": "site-search",
+          "name": "站内搜索",
+          "mode": "query",
+          "baseUrl": "https://www.unesco.org/zh/search",
+          "fixedParams": [
+            {
+              "name": "category",
+              "value": "UNESCO"
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "query",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入 UNESCO 站内搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "manual",
+            "notes": "实测访问 category=UNESCO、query=ai 的中文站内搜索页面显示 4068 条结果；替换为 query=education 后显示 2914 条结果，表明 query 参数生效。category=UNESCO 源于提供的链接，未单独确认该参数的筛选效果。",
+            "referenceUrl": "https://www.unesco.org/zh/search?category=UNESCO&query=ai"
+          }
+        }
+      ]
+    },
+    {
+      "id": "12371",
+      "name": "共产党员网",
+      "homepage": "https://search.12371.cn/",
+      "category": "党建与政务",
+      "notes": "网站站内综合搜索；固定参数来自原搜索链接，当前仅配置关键词检索。",
+      "searchRules": [
+        {
+          "id": "site-search",
+          "name": "站内综合搜索",
+          "mode": "query",
+          "baseUrl": "https://search.12371.cn/search.php",
+          "fixedParams": [
+            {
+              "name": "t",
+              "value": "newsmerge"
+            },
+            {
+              "name": "client",
+              "value": "no"
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "q",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "manual",
+            "notes": "打开 q=ai 的搜索页，页面显示与 AI 相关的结果及关键词，引擎识别该参数。t=newsmerge、client=no 来自提供的网址，未单独测试其筛选作用。",
+            "referenceUrl": "https://search.12371.cn/search.php?t=newsmerge&client=no&q=ai"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stats-data",
+      "name": "国家数据（国家统计局数据查询）",
+      "homepage": "https://data.stats.gov.cn/dg/website/page.html#/pc/national/search",
+      "category": "统计数据",
+      "notes": "新版页面的关键词位于井号 # 后的前端路由（#/pc/national/search?s=...）；schemaVersion 1 无法替换 fragment 中的搜索词。网站主按钮打开新版检索入口；另提供已观察到响应不同关键词的旧版网页检索接口，数据覆盖范围和结果可能与新版不同。",
+      "searchRules": [
+        {
+          "id": "legacy-keyword-search",
+          "name": "旧版数据关键词检索",
+          "mode": "query",
+          "baseUrl": "https://data.stats.gov.cn/search.htm",
+          "fixedParams": [],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "数据指标、地区或时间",
+              "param": "s",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "manual",
+            "notes": "检索路径 search.htm 的 s 参数可进入旧版国家数据搜索页。分别打开 s=1994 与 s=2003 GDP 页面，页面返回不同的结果条数（47 与 134038）；该路径不是用户提供的新版 SPA 搜索路径，长期兼容性待继续观察。",
+            "referenceUrl": "https://data.stats.gov.cn/search.htm?s=1994"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stats-gov",
+      "name": "国家统计局官网",
+      "homepage": "https://www.stats.gov.cn/",
+      "category": "统计数据",
+      "notes": "官方站内搜索，保留 siteCode=bm36000002 与 tab=all；qt 为搜索词。页面结果依赖站内脚本，尚未独立确认不同关键词的结果差异。",
+      "searchRules": [
+        {
+          "id": "site-search",
+          "name": "官网资讯搜索",
+          "mode": "query",
+          "baseUrl": "https://www.stats.gov.cn/search/s",
+          "fixedParams": [
+            {
+              "name": "siteCode",
+              "value": "bm36000002"
+            },
+            {
+              "name": "tab",
+              "value": "all"
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "qt",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "用户提供的 URL 能打开网站搜索页面，当前网页抓取仅能看到表单，未确认关键词过滤结果。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ncdc",
+      "name": "国家冰川冻土沙漠科学数据中心",
+      "homepage": "https://www.ncdc.ac.cn/portal/metadata",
+      "category": "科学数据",
+      "notes": "数据资源检索。title_cn_like 为检索内容，current_page=1 固定从第一页开始；具体匹配范围以网站实际展示为准。",
+      "searchRules": [
+        {
+          "id": "dataset-search",
+          "name": "检索数据资源",
+          "mode": "query",
+          "baseUrl": "https://www.ncdc.ac.cn/portal/metadata",
+          "fixedParams": [
+            {
+              "name": "current_page",
+              "value": "1"
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "title_cn_like",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "manual",
+            "notes": "打开 title_cn_like=搜索、current_page=1 后显示与路径搜索、轨迹规划相关的少量数据资源；未附带过滤条件的资源页显示完整分类，表明条件已影响资源列表。仅确认该关键词搜索条件及页码参数的格式。",
+            "referenceUrl": "https://www.ncdc.ac.cn/portal/metadata?title_cn_like=%E6%90%9C%E7%B4%A2&current_page=1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "scidb",
+      "name": "科学数据银行（ScienceDB）",
+      "homepage": "https://www.scidb.cn/",
+      "category": "科学数据",
+      "notes": "数据集检索。searchList 来自所给查询 URL，保留空的 ordernum 参数；网页可能自动跳转英文版，关键词生效情况尚待手动确认。",
+      "searchRules": [
+        {
+          "id": "dataset-search",
+          "name": "搜数据集",
+          "mode": "query",
+          "baseUrl": "https://www.scidb.cn/list",
+          "fixedParams": [
+            {
+              "name": "ordernum",
+              "value": ""
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "searchList",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "所给地址可被识别为数据集列表入口，但网页抓取跳转英文版且未显示结果，暂不把搜索参数标记为已验证。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "npc-flk",
+      "name": "国家法律法规数据库",
+      "homepage": "https://flk.npc.gov.cn/search",
+      "category": "法律法规",
+      "notes": "全国人大国家法律法规数据库检索入口；尚未确认适用于公共链接的关键词参数，因此仅提供网站入口。",
+      "searchRules": []
+    },
+    {
+      "id": "gov-search",
+      "name": "中国政府网（站内搜索）",
+      "homepage": "https://sousuo.www.gov.cn/sousuo/search.shtml",
+      "category": "政务与政策",
+      "notes": "中国政府网搜索接口。code 和 dataTypeId 保留自用户提供的政策搜索链接，searchWord 为查询词；抓取页面未能确认搜索词实际产生的结果，需人工复核。",
+      "searchRules": [
+        {
+          "id": "policy-search",
+          "name": "政策与政务搜索",
+          "mode": "query",
+          "baseUrl": "https://sousuo.www.gov.cn/sousuo/search.shtml",
+          "fixedParams": [
+            {
+              "name": "code",
+              "value": "17da70961a7"
+            },
+            {
+              "name": "dataTypeId",
+              "value": "107"
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "searchWord",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "给定的 searchWord=搜索 地址可打开搜索页面，但目前展示 0 结果，未能交叉确认关键词及分类生效，故标记未经验证。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gov-zhengce",
+      "name": "中国政府网（政策检索）",
+      "homepage": "https://www.gov.cn/search/zhengce/",
+      "category": "政务与政策",
+      "notes": "中国政府网政策搜索专用页面；按提供的网址使用 q 作为关键词参数。目标网站对自动访问返回 403，因此尚未核实可搜索性。",
+      "searchRules": [
+        {
+          "id": "policy-search",
+          "name": "政策检索",
+          "mode": "query",
+          "baseUrl": "https://www.gov.cn/search/zhengce/",
+          "fixedParams": [],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "搜索关键词",
+              "param": "q",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入搜索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "用户提供 URL 形态为 /search/zhengce/?q=关键词；网页抓取遇到 403，尚未核实结果。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "court-cases",
+      "name": "人民法院案例库",
+      "homepage": "https://rmfyalk.court.gov.cn/",
+      "category": "司法案例",
+      "notes": "人民法院案例库首页可选择全文、标题、关键词等条件检索；尚未确认通用 GET 搜索参数，仅提供入口。",
+      "searchRules": []
+    },
+    {
+      "id": "court-wenshu",
+      "name": "中国裁判文书网",
+      "homepage": "https://wenshu.court.gov.cn/",
+      "category": "司法案例",
+      "notes": "原链接的 pageId 可能是临时页面标识，且 s21 含义未确认；不写入固定搜索模板，只打开官网检索入口。网站可能要求登录，部分功能可能受升级维护影响。",
+      "searchRules": []
+    }
+  ]
+}
