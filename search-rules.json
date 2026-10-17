@@ -1,0 +1,180 @@
+{
+  "format": "academic-search-rules",
+  "schemaVersion": 1,
+  "revision": 4,
+  "sites": [
+    {
+      "id": "cnki",
+      "name": "中国知网",
+      "homepage": "https://kns.cnki.net/kns8s/AdvSearch",
+      "category": "中文学术数据库",
+      "notes": "打开知网高级检索页，由用户在站内手动填写检索条件；尚未确认可直接传入条件的 URL 参数。",
+      "searchRules": []
+    },
+    {
+      "id": "wanfang",
+      "name": "万方数据",
+      "homepage": "https://s.wanfangdata.com.cn/advanced-search/paper",
+      "category": "中文学术数据库",
+      "notes": "打开万方高级检索页，由用户在站内手动填写检索条件；尚未确认可直接传入条件的 URL 参数。",
+      "searchRules": []
+    },
+    {
+      "id": "cqvip",
+      "name": "维普网",
+      "homepage": "https://www.cqvip.com/",
+      "category": "中文学术数据库",
+      "notes": "当前提供官网入口，可在站内选择期刊等资源进行检索；URL 搜索地址和参数尚待确认。",
+      "searchRules": []
+    },
+    {
+      "id": "pubmed",
+      "name": "PubMed",
+      "homepage": "https://pubmed.ncbi.nlm.nih.gov/",
+      "category": "生物医学",
+      "notes": "可输入关键词或完整 PubMed 检索式；字段标签、布尔运算和日期条件由用户在同一输入框中手动填写。浏览器中已启用的 PubMed 筛选条件可能影响结果，可在目标页面清除。",
+      "searchRules": [
+        {
+          "id": "literature-search",
+          "name": "搜文献",
+          "mode": "query",
+          "baseUrl": "https://pubmed.ncbi.nlm.nih.gov/",
+          "fixedParams": [],
+          "fields": [
+            {
+              "id": "query",
+              "label": "关键词或 PubMed 检索式",
+              "param": "term",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入关键词或完整检索式"
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "official-docs",
+            "notes": "PubMed 官方用户指南的链接构造章节明确给出 https://pubmed.ncbi.nlm.nih.gov/?term=search，说明将检索内容放入 term，并用加号编码空格；字段标签和布尔运算由用户原样输入。",
+            "referenceUrl": "https://pubmed.ncbi.nlm.nih.gov/help/#creating-a-url-linking-to-a-pubmed-search"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ieee-conferences",
+      "name": "IEEE Conferences",
+      "homepage": "https://conferences.ieee.org/",
+      "category": "会议",
+      "notes": "按关键词和会议日期范围检索 IEEE 会议。关键词输入 * 可查询范围内的全部会议；日期为会议筛选条件，不是征稿截止日期。",
+      "searchRules": [
+        {
+          "id": "conference-search",
+          "name": "按日期搜会议",
+          "mode": "query",
+          "baseUrl": "https://conferences.ieee.org/conferences_events/conferences/search",
+          "fixedParams": [
+            {
+              "name": "subsequent_q",
+              "value": ""
+            },
+            {
+              "name": "date",
+              "value": "all"
+            },
+            {
+              "name": "region",
+              "value": "all"
+            },
+            {
+              "name": "country",
+              "value": "all"
+            },
+            {
+              "name": "pos",
+              "value": "0"
+            },
+            {
+              "name": "sortorder",
+              "value": "desc"
+            },
+            {
+              "name": "sponsor",
+              "value": ""
+            },
+            {
+              "name": "sponsor_type",
+              "value": "all"
+            },
+            {
+              "name": "state",
+              "value": "all"
+            },
+            {
+              "name": "field_of_interest",
+              "value": "all"
+            },
+            {
+              "name": "sortfield",
+              "value": "relevance"
+            },
+            {
+              "name": "searchmode",
+              "value": "advanced"
+            },
+            {
+              "name": "virtualConfReadOnly",
+              "value": "B"
+            },
+            {
+              "name": "eventformat",
+              "value": ""
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "会议关键词",
+              "param": "q",
+              "type": "text",
+              "required": true,
+              "defaultValue": "*",
+              "placeholder": "输入关键词；* 表示全部会议"
+            },
+            {
+              "id": "start-date",
+              "label": "开始日期",
+              "param": "from",
+              "type": "date",
+              "required": true,
+              "defaultValue": ""
+            },
+            {
+              "id": "end-date",
+              "label": "结束日期",
+              "param": "to",
+              "type": "date",
+              "required": true,
+              "defaultValue": ""
+            }
+          ],
+          "verification": {
+            "status": "verified",
+            "checkedAt": "2026-10-17",
+            "method": "manual",
+            "notes": "人工确认 q=*、from=2025-01-01、to=2025-01-06 时显示对应日期筛选及 5 场会议；使用规则生成的链接将 q 改为 IMCOM、保留相同日期后仅返回该会议。date=all 未阻止起止日期生效。",
+            "referenceUrl": "https://support.ieeemce.org/hc/en-us/articles/25213617875483-How-do-I-find-a-conference-on-the-IEEE-org-conference-search"
+          }
+        }
+      ]
+    },
+    {
+      "id": "arxiv",
+      "name": "arXiv",
+      "homepage": "https://arxiv.org/",
+      "category": "预印本",
+      "notes": "当前提供官网入口，请进入网站使用普通或高级检索；本批次尚未完成网页搜索 URL 参数确认，未将返回数据的 API 地址作为网页搜索入口。",
+      "searchRules": []
+    }
+  ]
+}
