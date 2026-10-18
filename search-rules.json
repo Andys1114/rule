@@ -1,7 +1,7 @@
 {
   "format": "academic-search-rules",
   "schemaVersion": 1,
-  "revision": 6,
+  "revision": 8,
   "sites": [
     {
       "id": "cnki",
@@ -500,6 +500,177 @@
       "homepage": "https://wenshu.court.gov.cn/",
       "category": "司法案例",
       "notes": "原链接的 pageId 可能是临时页面标识，且 s21 含义未确认；不写入固定搜索模板，只打开官网检索入口。网站可能要求登录，部分功能可能受升级维护影响。",
+      "searchRules": []
+    },
+    {
+      "id": "cnipa-patent",
+      "name": "国家知识产权局专利检索及分析系统",
+      "homepage": "https://pss-system.cponline.cnipa.gov.cn/conventionalSearch",
+      "category": "专利检索",
+      "notes": "国家知识产权局官方专利检索入口；尚未确认可通过 URL 参数直达检索结果，进入网站后手动搜索。可能需要注册登录。",
+      "searchRules": []
+    },
+    {
+      "id": "uspto-ppubs",
+      "name": "USPTO Patent Public Search",
+      "homepage": "https://ppubs.uspto.gov/basic/",
+      "category": "专利检索",
+      "notes": "美国专利商标局（USPTO）专利公开检索 Basic 模式；支持专利号快速查询和基本检索，未确认网页 GET 检索参数，需站内输入。",
+      "searchRules": []
+    },
+    {
+      "id": "wipo-patentscope",
+      "name": "WIPO PATENTSCOPE",
+      "homepage": "https://patentscope.wipo.int/search/zh/search.jsf",
+      "category": "专利检索",
+      "notes": "世界知识产权组织的专利检索系统，使用中文搜索入口；提供的 result.jsf?_vid=... 包含会话标识，不宜作为公共规则入口。未确认可直接传入检索关键词的稳定 URL 参数。",
+      "searchRules": []
+    },
+    {
+      "id": "nhc-search",
+      "name": "国家卫生健康委员会网站搜索",
+      "homepage": "https://zs.kaipuyun.cn/s?siteCode=bm24000006",
+      "category": "政务与政策",
+      "notes": "国家卫生健康委员会站内搜索。已观察到 searchWord 参数可显示搜索结果；其他关键词及固定参数的效果尚待进一步验证。",
+      "searchRules": [
+        {
+          "id": "site-search",
+          "name": "站内关键词搜索",
+          "mode": "query",
+          "baseUrl": "https://zs.kaipuyun.cn/s",
+          "fixedParams": [
+            {
+              "name": "token",
+              "value": ""
+            },
+            {
+              "name": "siteCode",
+              "value": "bm24000006"
+            },
+            {
+              "name": "button",
+              "value": ""
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "关键词",
+              "param": "searchWord",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入检索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "基于用户提供的搜索链接配置；原链接能返回搜索结果，但未完成更换关键词的独立验证。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhihuishu",
+      "name": "智慧树课程检索",
+      "homepage": "https://www.zhihuishu.com/portals_h5/2clearning.html",
+      "category": "在线学习",
+      "notes": "用户提供的课程搜索路由为 #/courseSearch?keyword=...，其中关键词在 URL fragment 中。当前 v1 规则格式不支持动态片段，因此仅提供课程页面入口，需站内手动检索。",
+      "searchRules": []
+    },
+    {
+      "id": "nlc",
+      "name": "中国国家图书馆",
+      "homepage": "https://www.nlc.cn/web/index.shtml",
+      "category": "图书馆",
+      "notes": "中国国家图书馆官网入口；本批次未确认其统一检索入口可用的关键词 URL 参数。",
+      "searchRules": []
+    },
+    {
+      "id": "ted",
+      "name": "TED",
+      "homepage": "https://www.ted.com/search",
+      "category": "演讲与公开课",
+      "notes": "TED 官网搜索入口。链接提供 q 参数用于搜索词；暂无法在当前环境独立验证检索结果，标记为未经验证。",
+      "searchRules": [
+        {
+          "id": "talk-search",
+          "name": "搜索演讲和内容",
+          "mode": "query",
+          "baseUrl": "https://www.ted.com/search",
+          "fixedParams": [],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "关键词",
+              "param": "q",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入检索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "根据用户提供的 /search?q=... 地址配置，站点访问受限，未能独立确认结果。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "xuexi",
+      "name": "学习强国搜索",
+      "homepage": "https://www.xuexi.cn/dc12897105c8c496d783c5e4d3b680a2/9a75e290b9cf8cb8fb529a6e503db78d.html",
+      "category": "在线学习",
+      "notes": "学习强国站内搜索；采用用户提供的搜索页面和 query 参数；省略时间戳 _t 避免硬编码；结果是否可靠需手动复核。",
+      "searchRules": [
+        {
+          "id": "site-search",
+          "name": "站内综合搜索",
+          "mode": "query",
+          "baseUrl": "https://www.xuexi.cn/dc12897105c8c496d783c5e4d3b680a2/9a75e290b9cf8cb8fb529a6e503db78d.html",
+          "fixedParams": [
+            {
+              "name": "page",
+              "value": "1"
+            },
+            {
+              "name": "search_source",
+              "value": "1"
+            },
+            {
+              "name": "program_id",
+              "value": "0"
+            },
+            {
+              "name": "product_params",
+              "value": "{\"time_filter\":\"all\",\"type_filter\":\"all\",\"sort_method\":\"integrated\",\"wenhui_sort_method\":\"near_far\",\"search_method\":\"all\"}"
+            }
+          ],
+          "fields": [
+            {
+              "id": "keyword",
+              "label": "关键词",
+              "param": "query",
+              "type": "text",
+              "required": true,
+              "defaultValue": "",
+              "placeholder": "输入检索关键词"
+            }
+          ],
+          "verification": {
+            "status": "unverified",
+            "notes": "用户提供的 URL 具有 query 搜索关键词和其他固定筛选字段，已去除可能随时间变化的 _t 参数；未能通过多关键词实测确认。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aliyun-ai-roadmap",
+      "name": "阿里云开发者社区（人工智能学习路线）",
+      "homepage": "https://developer.aliyun.com/learning/roadmap/ai",
+      "category": "在线学习",
+      "notes": "阿里云开发者社区的人工智能学习路线页面，涵盖机器学习、深度学习框架与实践课程；这是学习资料入口，不是关键词搜索页，未设置 URL 搜索参数。",
       "searchRules": []
     }
   ]
